@@ -10,8 +10,8 @@ class Guy:
         self.said.add(text)
         print(self.name + ": " + text + "\n")
 
-def write(text):
-    print("\t" + text.replace("\n", "\t"))
+def write(text="", end="\n"):
+    print("\t" + text.replace("\n", "\t"), end=end)
 
 def narrate(text):
     print(text + "\n")

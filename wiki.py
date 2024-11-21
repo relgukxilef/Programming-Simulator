@@ -12,7 +12,7 @@ wiki = [
     "into three main files, in order of precedence: "
     "'user/config.ini', 'config.ini' and 'base/super.yaml'.",
 
-    "Compatibility Notice: To build versions earlier than 204.1701.103 you "
+    "Compatibility Notice: To build versions earlier than 204.701.103 you "
     "need to pass '--legacy_mode' to 'cake' due to a compiler update.",
 
     "Version Numbers: We use 6 part version numbers "

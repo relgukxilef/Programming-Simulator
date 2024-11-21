@@ -1,6 +1,9 @@
 import re
 import game
 import wiki
+import lit
+
+DEBUG = True
 
 lead = game.Guy("Team Lead")
 colleague = game.Guy("Peter")
@@ -22,7 +25,8 @@ log = []
 
 class Rule:
     def __init__(
-        self, pattern, message, condition=lambda: True, action=lambda: None
+        self, pattern, message=None, condition=lambda: True, 
+        action=lambda: None
     ):
         self.pattern = pattern
         self.message = message
@@ -30,6 +34,11 @@ class Rule:
         self.action = action
 
 variables = {}
+
+if DEBUG:
+    variables = {
+        "password": ""
+    }
 
 rules = [
     Rule("set_my_password .{0,5}", "Password must have at least length 6."),
@@ -72,13 +81,20 @@ rules = [
                 "'lit' is our version control solution. Use 'lit switch' "
                 "followed by a version number to download that versions of "
                 "our project. Use 'lit push' to upload your changes to "
-                "our server. "
+                "our server. We maintain several versions of our product."
             ),
             lead.say(
                 "Your computer comes pre-installed with 'bscode' to edit "
                 "files."
             ),
-        )
+            lead.say(
+                "Now you're ready for your first task! We received a "
+                "complaint from a customer that our program uses up to much "
+                "disk space. Can you download the version 2.3.0_9.2.0 and "
+                "check if there is anything in the configuration that could "
+                "cause this?"
+            ),
+        ),
     ),
     Rule(
         ".+", "Account locked. Set password.", 
@@ -86,6 +102,10 @@ rules = [
     ),
     Rule(
         "wiki \\S+", None, action=lambda: wiki.search(log[-1][5:])
+    ),
+    Rule(
+        "lit switch ([1-9]?\\d\\.){2}\\d_([1-9]?\\d\\.){2}\\d", 
+        action=lambda: lit.switch(log[-1][11:])
     ),
 ]
 
